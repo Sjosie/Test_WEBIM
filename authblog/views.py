@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import Greetings
 
-# Create your views here.
+def post_list(request):
+    posts = Greetings.objects.all()
+    return render(request, 'authblog/post_list.html', {'posts': posts})
+

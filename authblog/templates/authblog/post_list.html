@@ -1,11 +1,21 @@
 {% load static %}
+{% load socialaccount %}
+{% load trans from i18n %}
+{% load account %}
+{% providers_media_js %}
+
+
+
+
 
 <html>
     <head>
         <title>Einloggen</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+</head>
     </head>
     <body>
         {% for post in posts %}
@@ -14,5 +24,33 @@
         <p>{{ post.description }}</p>
     </div>
         {% endfor %}
+        <link type="text/css" rel="stylesheet" href="{% static 'odrova/bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- <a href="/login/vk-oauth2"><img src="/static/VK_Logo.png" class="avatar-3" data-toggle="tooltip" metitle="{% trans 'Login via VKontakte' %}"></a> -->
+        
+        <a href="{% provider_login_url "vk" method="oauth2" %}"> Войти через VK </a>
+        
+
+        
+
+        <h1>{{ user.get_full_name }}</h1>
+
+        {% if user.is_authenticated %}        
+            <a href="https://api.vk.com/method/friends.get?user_id={{user.socialaccount_set.all.0.uid}}&fields=nickname&count=5&order=random&access_token=b1b29495b1b29495b1b29495bbb1ddb0d5bb1b2b1b29495ef92a5f0b934b7b315d4b1e9&v=5.103"> Ur information</a>
+            <!-- <p>Welcome {{ user.get_username }} !!!</p>   -->
+             
+            <img src="{{user.socialaccount_set.all.0.get_avatar_url}}">
+
+            <p>Welcome {{ user.get_username }} !!!</p>
+        {% endif %}
+<!-- 
+        {% if user.socialaccount_set.all.0.uid in username %}
+            
+        {% endif %} -->
+        <label><input name="remember_me" type="checkbox">Keep me logged in</label>
+   
+  
+    </div>
+    </div>
     </body>
 </html>

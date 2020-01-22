@@ -1,7 +1,11 @@
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
+import vk_api
+
+
 
 class Greetings(models.Model):
     title = models.TextField()
-    description = models.TextField()
+    description = models.TextField()   
+
+

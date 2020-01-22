@@ -16,8 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
+
+
+app_name = 'accounts'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authblog.urls')),
+    path('', include('social_django.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('login', auth_views.LoginView.as_view(template_name='authblog/post_list.html')),
+
 ]
+
+#url(r'^accounts/', include('allauth.urls')),
